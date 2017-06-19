@@ -6,11 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.design.widget.Snackbar;
-
+import android.widget.Toast;
 
 
 import com.mostafaelhaw.task_1.R;
@@ -67,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * Just to know onClick and Printing Hello Toast in Center.
+        /* *
+         *
+         */
+       //  Just to know onClick and Printing Hello Toast in Center.
+
 
         Toast toast = Toast.makeText(getApplicationContext(), R.string.string_click_to_load, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-         */
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -89,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                     final ProgressDialog dialog;
                     /**
                      * Progress Dialog for User Interaction
-
+                     */
                     dialog = new ProgressDialog(MainActivity.this);
                     dialog.setTitle(getString(R.string.string_getting_json_title));
                     dialog.setMessage(getString(R.string.string_getting_json_message));
                     dialog.show();
 
-                     */
+
 
                     //Creating an object of our api interface
                     ApiService api = ApiClient.getApiService();
@@ -111,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
                     call.enqueue(new Callback<recipeResponse>() {
                         @Override
                         public void onResponse(Call<recipeResponse> call, Response<recipeResponse> response) {
-                            //Dismiss Dialog
-                            //dialog.dismiss();
+                          //  Dismiss Dialog
+                            dialog.dismiss();
 
                             if(response.isSuccessful()) {
                                 /**
@@ -127,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
                                 listView.setAdapter(adapter);
 
                             }
-                         //   else {
-                           //     Snackbar.make(parentView, R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();  }
+                            else {
+                                Snackbar.make(parentView, R.string.string_some_thing_wrong, Snackbar.LENGTH_LONG).show();  }
 
                         }
 
@@ -141,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                 }
-                //else {
-                  //  Snackbar.make(parentView, R.string.string_internet_connection_not_available, Snackbar.LENGTH_LONG).show(); }
+                else {
+                    Snackbar.make(parentView, R.string.string_internet_connection_not_available, Snackbar.LENGTH_LONG).show(); }
             }
         });
     }
